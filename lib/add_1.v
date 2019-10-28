@@ -1,12 +1,4 @@
-module full_adder 
-  (
-   a,
-   b,
-   i_carry,
-   o_sum,
-   o_carry
-   );
- 
+module full_adder (a, b, i_carry, o_sum, o_carry);
   input  a;
   input  b;
   input  i_carry;
