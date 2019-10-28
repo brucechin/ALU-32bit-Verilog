@@ -44,5 +44,6 @@ full_adder  fba0(a[0], b[0], i_carry, o_sum[0], tmp_carry1),
             fba30(a[30], b[30], tmp_carry30, o_sum[30], tmp_carry31),
             fba31(a[31], b[31], tmp_carry31, o_sum[31], o_carry);
 
+xor_gate(i_carry, o_carry, overflow);
 
 endmodule
