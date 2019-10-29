@@ -6,7 +6,8 @@ input [31:0] movement;
 output [31:0] out;
 
 
-assign out = a;
+mux mux0(1'b1, 0, a, out);
+
 
 //move one bit left according to movement lowest bit
 mux_8 mux00 (movement[0], out[7:0], out[8:1], out[7:0]);

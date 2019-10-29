@@ -6,8 +6,7 @@ input [31:0] movement;
 
 output [31:0] out;
 
-assign out = a;
-
+mux mux0(1'b1, 0, a, out);
 
 mux_8 mux00 (movement[0], out[31:24], out[30:23], out[31:24]);
 mux_8 mux01 (movement[0], out[23:16], out[22:15], out[30:16]);

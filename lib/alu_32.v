@@ -20,84 +20,63 @@ module alu_32(input [31:0] a, b,
 
 */
 
-always @(posedge op | posedge a | posedge b)
+wire [31:0] add_tmp;
+wire [31:0] sub_tmp;
+wire [31:0] and_tmp;
+wire [31:0] xor_tmp;
+wire [31:0] or_tmp;
+wire [31:0] sll_tmp;
+wire [31:0] srl_tmp;
+wire [31:0] slt_tmp;
+wire [31:0] sltu_tmp;
 
-begin
-    case (op)
-        4'b0000 : 
-        begin
-            add_32(.a(a), .b(b), .i_carry(1'b0), .o_sum(result), .o_carry(carryout), .overflow(overflow));
-        end
+wire carryout_add, carryout_sub;
+wire overflow_add, overflow_sub;
 
-        4'b0001 : 
-        begin
-            sub_32(.a(a), .b(b), .i_carry(1'b0), .o_sum(result), .o_carry(carryout), .overflow(overflow));
-        end
+add_32 add(.a(a), .b(b), .i_carry(1'b0), .o_result(add_tmp), .o_carry(carryout_add), .overflow(overflow_add));
+sub_32 sub(.a(a), .b(b), .i_carry(1'b0), .o_result(sub_tmp), .o_carry(carryout_sub), .overflow(overflow_sub));
+and_gate_32 and(.x(a), .y(b), .z(and_tmp));
+xor_gate_32 xor(.x(a), .y(b), .z(xor_tmp));
+or_gate_32 or(.x(a), .y(b), .z(or_tmp));
+sll sll_(.a(a), .movement(b), .out(sll_tmp));
+srl srl_(.a(a), .movement(b), .out(srl_tmp));
+slt_32 slt(.result(slt_tmp), .a(a), .b(b));
+sltu_32 sltu(.result(sltu_tmp), .a(a), .b(b));
 
-        4'b0010 :
-        begin
-            and_gate_32(.x(a), .y(b), .z(result));
-            mux and1(1'b0, 1'b0, 1'b0, carryout);
-            mux and2(1'b0, 1'b0, 1'b0, overflow);
-            mux and3(1'b0, 1'b0, 1'b0, zero);
-        end
 
-        4'b0011 :
-        begin
-            xor_gate_32(.x(a), .y(b), .z(result));
-            mux xor1(1'b0, 1'b0, 1'b0, carryout);
-            mux xor2(1'b0, 1'b0, 1'b0, overflow);
-            mux xor3(1'b0, 1'b0, 1'b0, zero);
-        end
 
-        4'b0100 :
-        begin
-            or_gate_32(.x(a), .y(b), .z(result));
-            mux or1(1'b0, 1'b0, 1'b0, carryout);
-            mux or2(1'b0, 1'b0, 1'b0, overflow);
-            mux or3(1'b0, 1'b0, 1'b0, zero);
-        end
+wire op_res1, op_res2, op_res3, op_res4, op_res5, op_res6, op_res7, op_res8, op_res9;
+op_check(.my_op(op), .target_op(4'b0000), op_res1);
+mux_1to32 mux01(op_res1, result, add_tmp, result);
+mux mux02(op_res1, carryout, carryout_add, carryout);
+mux mux03(op_res1, overflow, overflow_add, overflow);
 
-        4'b0101 :
-        begin
-            sll(.a(a), .movement(b), .out(result));
-            mux sll1(1'b0, 1'b0, 1'b0, carryout);
-            mux sll2(1'b0, 1'b0, 1'b0, overflow);
-            mux sll3(1'b0, 1'b0, 1'b0, zero);
-        end
+op_check(.my_op(op), target_op(4'b0001), op_res2);
+mux_1to32 mux11(op_res2, result, sub_tmp, result);
+mux mux12(op_res2, carryout, carryout_sub, carryout);
+mux mux13(op_res2, overflow, overflow_sub, overflow);
 
-        4'b0110 :
-        begin
-            srl(.a(a), .movement(b), .out(result));
-            mux srl1(1'b0, 1'b0, 1'b0, carryout);
-            mux srl2(1'b0, 1'b0, 1'b0, overflow);
-            mux srl3(1'b0, 1'b0, 1'b0, zero);
-        end
+op_check(.my_op(op), target_op(4'b0010), op_res3);
+mux_1to32 mux21(op_res3, result, and_tmp, result);
 
-        4'b0111 :
-        begin
-            slt_32(.result(result), .a(a), .b(b));
-            mux slt1(1'b0, 1'b0, 1'b0, carryout);
-            mux slt2(1'b0, 1'b0, 1'b0, overflow);
-            mux slt3(1'b0, 1'b0, 1'b0, zero);
-        end
+op_check(.my_op(op), target_op(4'b0011), op_res4);
+mux_1to32 mux31(op_res4, result, xor_tmp, result);
 
-        4'b1000 :
-        begin
-            sltu_32(.result(result), .a(a), .b(b));
-            mux sltu1(1'b0, 1'b0, 1'b0, carryout);
-            mux sltu2(1'b0, 1'b0, 1'b0, overflow);
-            mux sltu3(1'b0, 1'b0, 1'b0, zero);
-        end
+op_check(.my_op(op), target_op(4'b0100), op_res5);
+mux_1to32 mux41(op_res5, result, or_tmp, result);
 
-        default:  
-            begin
-            $display("should not happen");
-            $finish;
-            end
-    endcase    
+op_check(.my_op(op), target_op(4'b0101), op_res6);
+mux_1to32 mux51(op_res6, result, sll_tmp, result);
 
-end
+op_check(.my_op(op), target_op(4'b0110), op_res7);
+mux_1to32 mux61(op_res7, result, srl_tmp, result);
 
+op_check(.my_op(op), target_op(4'b0111), op_res8);
+mux_1to32 mux71(op_res8, result, slt_tmp, result);
+
+op_check(.my_op(op), target_op(4'b1000), op_res9);
+mux_1to32 mux81(op_res9, result, sltu_tmp, result);
+
+is_zero_32to1(result, zero);
 
 endmodule

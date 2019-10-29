@@ -11,6 +11,6 @@ wire i_carry = 1'b0;
 wire o_carry = 1'b1;
 
 sub_32(a, b, i_carry, tmp, o_carry, overflow);
-assign result[0] = not_gate(o_carry);
+not_gate(o_carry, result[0]);
 
 endmodule
