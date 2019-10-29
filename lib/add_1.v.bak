@@ -6,7 +6,7 @@ module full_adder (a, b, i_carry, o_sum, o_carry);
   output o_carry;
  
   assign o_sum   = a ^ b ^ i_carry;
-  assign o_carry = (((a ^ b) & i_carry) | (a & b));
+  assign o_carry = ((a ^ b) & i_carry) | (a & b);
  
    
 endmodule
