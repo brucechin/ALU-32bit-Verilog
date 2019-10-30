@@ -8,8 +8,13 @@ module sub_32(a, b, i_carry, o_result, o_carry, overflow);
   output overflow;
 
   wire[31:0] tmp;
+  wire[31:0] tmp2;
   
   not_gate_32 not_tmp(b, tmp);
-  add_32 add_tmp(a, tmp, i_carry, o_result, o_carry, overflow);
+
+  wire o_carry_dummy, overflow_dummy;
+  add_32 add_1(tmp, 1, 1'b0, tmp2, o_carry_dummy, overflow_dummy);
+
+  add_32 add_tmp(a, tmp2, i_carry, o_result, o_carry, overflow);
 
 endmodule

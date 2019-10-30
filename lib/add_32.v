@@ -47,7 +47,7 @@ full_adder  fba0(a[0], b[0], i_carry, o_result[0], tmp_carry1),
 
 wire same_signed, overflow_tmp;
 
-and_gate and_possible(a[31], b[31], same_signed);
+xnor_gate overflow_possible(a[31], b[31], same_signed);
 xor_gate xor_tmp(a[31], o_result[31], overflow_tmp);
 
 //only when a and b are both positive or negative and the overflow_tmp is true, it is overflow
