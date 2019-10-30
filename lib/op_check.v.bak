@@ -6,7 +6,7 @@ output result;
 //set result default value is true
 mux res(1'b1, 1'b0, 1'b1, result);
 
-wire comp0, comp1, comp2, comp3;
+wire comp0, comp1, comp2, comp3;›
 
 xor_gate xor0(my_op[0], target_op[0], comp0);
 xor_gate xor1(my_op[1], target_op[1], comp1);

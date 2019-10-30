@@ -9,7 +9,7 @@ module sub_32(a, b, i_carry, o_result, o_carry, overflow);
 
   wire[31:0] tmp;
   
-  not_gate_32(b, tmp);
-  add_32(a, tmp, i_carry, o_result, o_carry, overflow);
+  not_gate_32 not_tmp(b, tmp);
+  add_32 add_tmp(a, tmp, i_carry, o_result, o_carry, overflow);
 
 endmodule

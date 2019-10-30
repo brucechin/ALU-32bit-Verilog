@@ -6,7 +6,8 @@ input [31:0] movement;
 output [31:0] out;
 
 
-mux mux0(1'b1, 0, a, out);
+mux_1to32 mux0(1'b1, 32'h00000000, a, out);
+
 
 
 //move one bit left according to movement lowest bit
@@ -33,7 +34,7 @@ mux_8 mux22 (movement[2], out[23:16], out[27:20], out[23:16]);
 mux_4 mux23 (movement[2], out[27:24], out[31:28], out[27:24]);
 
 //move 8 bits left if movement[1] == 1
-mux_8 mux30 (movement[3], out[7:0], out[15:9], out[7:0]);
+mux_8 mux30 (movement[3], out[7:0], out[15:8], out[7:0]);
 mux_8 mux31 (movement[3], out[15:8], out[23:16], out[15:8]);
 mux_8 mux32 (movement[3], out[23:16], out[31:24], out[23:16]);
 

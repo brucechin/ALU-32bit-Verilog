@@ -1,7 +1,7 @@
 module is_zero_32to1 (sel, out);
 
 input [31:0] sel;
-output out;
+output reg out;
 wire tmp;
 //set tmp default value true;
 mux default_(1'b1, 1'b0, 1'b1, tmp);
