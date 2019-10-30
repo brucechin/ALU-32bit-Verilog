@@ -10,30 +10,30 @@ module bit_srl_test;
     begin
         $monitor(a, b, res);
         #100
-        assign a = 32143513; // this is add overflow test
-	    assign b = 7;
+        a = 32143513; // this is add overflow test
+	    b = 7;
         $display(a, b, res);
         #100
-        assign a = 93152513; // this is sub overflow test
-	    assign b = 5;
+        a = 93152513; // this is sub overflow test
+	    b = 5;
         $display(a, b, res);
         #100
-        assign a = 1513242;
-	    assign b = 5;
+        a = 1513242;
+	    b = 5;
         $display(a, b, res);
         #100
-        assign a = 73412343;
-	    assign b = 9;
-        $display(a, b, res);
-
-        #100
-        assign a = 72345233;
-	    assign b = 7;
+        a = 73412343;
+	    b = 9;
         $display(a, b, res);
 
         #100
-        assign a = 5112473;
-	    assign b = 7;
+        a = 72345233;
+	    b = 7;
+        $display(a, b, res);
+
+        #100
+        a = 5112473;
+	    b = 7;
         $display(a, b, res);
         
     end

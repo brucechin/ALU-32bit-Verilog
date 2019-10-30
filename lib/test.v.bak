@@ -9,50 +9,52 @@ module test;
     wire overflow;
 
     //add_32 test_add (.a(a), .b(b), .i_carry(i_carry), .o_sum(sum), .o_carry(o_carry), .overflow(overflow));
-    alu_32(.a(a), .b(b), .op(op), .carryout(o_carry), .overflow(overflow), .zero(zero), .result(res));
+    alu_32 alu(.a(a), .b(b), .op(op), .carryout(o_carry), .overflow(overflow), .zero(zero), .result(res));
     initial
     begin
-        $monitor(a, b, res, o_carry, overflow, zero);
-        
+        $monitor(a, b, res, op, o_carry, overflow, zero);
         #100
-        assign a = 1123;
-	assign b = 1312;
-	assign op = 4'b0001;
+        mux_1to32(1'b1, 0, 32'h7ffffff1, a);
+        mux_1to32(1'b1, 0, 1312342, b);
+        mux_1to32(1'b1, 0, 4'b000, op);
 
         #100
-        assign a = 123;
-	assign b = 4;
-	assign op = 4'b0010;
+        mux_1to32(1'b1, 0, 1334212, a);
+        mux_1to32(1'b1, 0, 32'h80000011, b);
+        mux_1to32(1'b1, 0, 4'b0001, op);
+
+        #100
+        mux_1to32(1'b1, 0, 121233, a);
+        mux_1to32(1'b1, 0, 4, b);
+        mux_1to32(1'b1, 0, 4'b0010, op);
 
 	#100
-        assign a = 123;
-	assign b = 541122;
-	assign op = 4'b0011;
+        mux_1to32(1'b1, 0, 1241233, a);
+        mux_1to32(1'b1, 0, 541122, b);
+        mux_1to32(1'b1, 0, 4'b0011, op);
 
 	#100
-        assign a = 12124213;
-	assign b = 541122;
-	assign op = 4'b0100;
+        mux_1to32(1'b1, 0, 12124213, a);
+        mux_1to32(1'b1, 0, 54112122, b);
+        mux_1to32(1'b1, 0, 4'b0100, op);
 
 	#100
-        assign a = 12123;
-	assign b = 5;
-	assign op = 4'b0101;
+        mux_1to32(1'b1, 0, 12141223, a);
+        mux_1to32(1'b1, 0, 5, b);
+        mux_1to32(1'b1, 0, 4'b0101, op);
 
 	#100
-        assign a = 12123;
+        assign a = 12143223;
 	assign b = 3;
 	assign op = 4'b0110;
 
-
-
 	#100
-        assign a = 12123;
-	assign b = 54232;
+        assign a = 1224123;
+	assign b = 5424232;
 	assign op = 4'b0111;
 
 	#100
-        assign a = 12123;
+        assign a = 12143123;
 	assign b = 5;
 	assign op = 4'b1000;
 

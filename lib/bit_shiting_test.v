@@ -10,30 +10,30 @@ module bit_shift_test;
     begin
         $monitor(a, b, res);
         #100
-        assign a = 3; // this is add overflow test
-	    assign b = 7;
+        a = 3; // this is add overflow test
+	    b = 7;
         $display(a, b, res);
         #100
-        assign a = 9; // this is sub overflow test
-	    assign b = 12;
+        a = 9; // this is sub overflow test
+	    b = 12;
         $display(a, b, res);
         #100
-        assign a = 15;
-	    assign b = 14;
+        a = 15;
+	    b = 14;
         $display(a, b, res);
         #100
-        assign a = 73;
-	    assign b = 9;
-        $display(a, b, res);
-
-        #100
-        assign a = 723;
-	    assign b = 7;
+        a = 73;
+	    b = 9;
         $display(a, b, res);
 
         #100
-        assign a = 5173;
-	    assign b = 11;
+        a = 723;
+	    b = 7;
+        $display(a, b, res);
+
+        #100
+        a = 5173;
+	    b = 11;
         $display(a, b, res);
         
     end

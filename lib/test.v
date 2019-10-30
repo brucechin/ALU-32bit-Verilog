@@ -14,49 +14,49 @@ module test;
     begin
         $monitor(a, b, res, op, o_carry, overflow, zero);
         #100
-        assign a = 32'h7ffffff1; // this is add overflow test
-	assign b = 1312342;
-	assign op = 4'b0000;
+        a = 32'h7ffffff1; // this is add overflow test
+	b = 1312342;
+	op = 4'b0000;
 
         #100
-        assign a = 1334212; // this is sub overflow test
-	assign b = 32'h80000011;
-	assign op = 4'b0001;
+        a = 1334212; // this is sub overflow test
+	b = 32'h80000011;
+	op = 4'b0001;
 
         #100
-        assign a = 121233;
-	assign b = 4;
-	assign op = 4'b0010;
+        a = 121233;
+	b = 4;
+	op = 4'b0010;
 
 	#100
-        assign a = 1241233;
-	assign b = 541122;
-	assign op = 4'b0011;
+        a = 1241233;
+	b = 541122;
+	op = 4'b0011;
 
 	#100
-        assign a = 12124213;
-	assign b = 54112122;
-	assign op = 4'b0100;
+        a = 12124213;
+	b = 54112122;
+	op = 4'b0100;
 
 	#100
-        assign a = 12141223;
-	assign b = 5;
-	assign op = 4'b0101;
+        a = 12141223;
+	b = 5;
+	op = 4'b0101;
 
 	#100
-        assign a = 12143223;
-	assign b = 3;
-	assign op = 4'b0110;
+        a = 12143223;
+	b = 3;
+	op = 4'b0110;
 
 	#100
-        assign a = 1224123;
-	assign b = 5424232;
-	assign op = 4'b0111;
+        a = 1224123;
+	b = 5424232;
+	op = 4'b0111;
 
 	#100
-        assign a = 12143123;
-	assign b = 5;
-	assign op = 4'b1000;
+        a = 12143123;
+	b = 5;
+	op = 4'b1000;
 
     end
   
